@@ -18,22 +18,36 @@ public class Jagged_Array {
 		while (i > 0) {
 			arr[j++] = new int[i--];
 		}
-		int j2=arr[0].length;
-		for (i = 0; i < nrows; i++) 
-		{
-			System.out.println("Enter " + j2 + " values in row " + i + " : ");
-			for (j = 0; j < arr[j].length; j++) 
-			{	j2=arr[j].length;
-				arr[i][j] = sc.nextInt();
-			}
-		}
-		// print 2d array
-
+		
 		for (int[] m : arr) {
 			for (int n : m)
-				System.out.println(n + " ");
+				System.out.print(m[n] + " ");
 			System.out.println();
 		}
+		
+		int j2;
+		for (i = 0; i < nrows; i++) 
+		{
+			j2=arr[i].length;
+			System.out.print("\nEnter " + j2 + " values in row " + i + " : ");
+			for (j = 0; j <arr[i].length ; j++) 
+			{
+				
+				arr[i][j] = sc.nextInt();
+			}
+			
+		}
+		// print 2d array
+		for(i=0;i<arr.length;i++) {
+			for(j=0;j<arr[i].length;j++) {
+				System.out.print(arr[i][j]+" ");
+			}
+			System.out.println();
+		}
+		/*
+		 * for (int[] m : arr) { for (int n : m) { System.out.print(m[n] + " "); }
+		 * System.out.println(); }
+		 */
 
 	}
 
