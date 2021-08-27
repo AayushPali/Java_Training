@@ -1,16 +1,9 @@
 package aug26;
-//complete implementation
 
-/*
-* Optimized: in each iteration, more than one element can be placed in its
-* final position; we assume all elements after the last swap to be sorted.
-* if array is 1 10 34 21 44 55 66--> Then iteration will only continue till 44.
-* EXCELLENT LOGIC of LASTSWAP VARIABLE USED TO STORE INDEX OF LAST SWAPPED NUMBER OF ARRAY
-* 
-* code by- @author <a href="sven@happycoders.eu">Sven Woltmann</a>
-*/
+import java.util.Scanner;
 
-//same logic as mam's but we use lastswap variable more efficiently than doing elements.length-1-i
+//same logic as explained but here lastswap variable is more efficient than elements.length-1-i
+//Here max is assigned lastswap, which is better than elements.length-1-i
 public class Bubble_Sort_Optimised_2x {
 	
 	public void sort(int[] elements) {
@@ -29,14 +22,21 @@ public class Bubble_Sort_Optimised_2x {
 		     if (lastSwapped == 0) break;
 		     max = lastSwapped;
 		   }
+		   for(int i:elements)
+			   System.out.print(i+" ");
 	}
 	
 	public static void main(String[] args) {
 		Bubble_Sort_Optimised_2x obj = new Bubble_Sort_Optimised_2x();
-		int[] elements;
-		for(int i=0;i<2) {
+		int[] elements= new int[10];
+		System.out.print("\nEnter 10 numbers: ");
+		Scanner sc= new Scanner(System.in);
+		
+		for(int i=0;i<10;i++) {
+			elements[i]=sc.nextInt();
 			
 		}
-		obj.sort(null);
+		sc.close();
+		obj.sort(elements);
 	}
 }

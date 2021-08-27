@@ -1,9 +1,12 @@
 package aug26;
-//completed in Github editor
-//check and confirm memory allocation of primitive and non primitive data types in stack and heap
 
+//check and confirm memory allocation of primitive 
+//and non primitive data types in stack and heap
 
+//found that string isn't referenced unlike arrays and objects
 public class Where_in_Memory_Stack_or_Heap {
+	
+	
 	void concatenate(String name) {
 		name+=" Paliwal";
 	}
@@ -36,7 +39,7 @@ public class Where_in_Memory_Stack_or_Heap {
 		
 		//now check for non primitive data types- string and arrays
 		System.out.println();
-		int[] arr=new int[5];
+		//int[] arr=new int[5];
 		String nameString= "Aayush";
 		Where_in_Memory_Stack_or_Heap obj= new Where_in_Memory_Stack_or_Heap();
 		obj.concatenate(nameString);

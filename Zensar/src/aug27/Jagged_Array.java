@@ -1,7 +1,7 @@
 package aug27;
 
 import java.util.Scanner;
-//error he
+
 public class Jagged_Array {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -38,16 +38,17 @@ public class Jagged_Array {
 			
 		}
 		// print 2d array
-		for(i=0;i<arr.length;i++) {
-			for(j=0;j<arr[i].length;j++) {
-				System.out.print(arr[i][j]+" ");
+		/*
+		 * for(i=0;i<arr.length;i++) { for(j=0;j<arr[i].length;j++) {
+		 * System.out.print(arr[i][j]+" "); } System.out.println(); }
+		 */
+		 
+		for (int[] m : arr) {
+			for (int n : m) {
+				System.out.print(n + " ");
 			}
 			System.out.println();
 		}
-		/* This is giving error
-		 * for (int[] m : arr) { for (int n : m) { System.out.print(m[n] + " "); }
-		 * System.out.println(); }
-		 */
 
 	}
 

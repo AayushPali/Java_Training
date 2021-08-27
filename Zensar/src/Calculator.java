@@ -1,4 +1,3 @@
-import java.nio.IntBuffer;
 
 public class Calculator {
 	int a, b;
