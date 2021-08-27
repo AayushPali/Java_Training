@@ -44,7 +44,7 @@ public class Jagged_Array {
 			}
 			System.out.println();
 		}
-		/*
+		/* This is giving error
 		 * for (int[] m : arr) { for (int n : m) { System.out.print(m[n] + " "); }
 		 * System.out.println(); }
 		 */
