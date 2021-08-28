@@ -31,5 +31,9 @@ public class Pen {
 	public void setBrandString(String brandString) {
 		this.brandString = brandString;
 	}
+	public String toString()
+	{
+		return(refill+" |CapLength- "+ capLength+" |Brand -"+brandString);
+	}
 	
 }

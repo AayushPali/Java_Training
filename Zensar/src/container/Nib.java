@@ -22,6 +22,9 @@ public class Nib {
 	public void setWidth(float width) {
 		this.width = width;
 	}
+	public String toString() {
+		return(" |Material- "+materialTypeString+" |"+width+"mm");
+	}
 	
 
 }

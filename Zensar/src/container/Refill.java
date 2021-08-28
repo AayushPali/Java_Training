@@ -30,4 +30,7 @@ public class Refill {
 	public Nib gettipNib() {
 		return tipNib;
 	}
+	public String toString() {
+		return(" |Ink color-"+inkColorString+" |Refill Length- "+length+tipNib);
+	}
 }

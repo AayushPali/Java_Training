@@ -1,22 +1,16 @@
 package aug26;
-
 import java.util.Scanner;
-//dynamically take mobile numbers without setting a maximum mobile nos a person can have;
+//1..dynamically take mobile numbers without setting a maximum mobile nos a person can have;
 class Student {
 	// Takes Number of Mobile number beforehand by user or puts max no of mobile at
-	// 3.
 	private int id;
 	private String nameString;
 	private long mobile[];
 
 	void setData() {
 
-		Scanner sc = new Scanner(System.in);
-		int size,j=0;
-		 // to be commented
-		char c = 'y';
-		long m;
-		
+			Scanner sc = new Scanner(System.in);
+			int size,j=0;		
 			System.out.print("\n\tEnter Student Id: ");
 			id = sc.nextInt();									
 			System.out.print("\n\tEnter Student Name ");
@@ -42,7 +36,7 @@ class Student {
 }
 
 class Trainer {
-	//Takes multiple numbers as string and Longparse it into 
+	//1..Takes multiple numbers as string and Longparse it into
 	private String nameString;
 	private long mobile[];
 	
@@ -53,7 +47,7 @@ class Trainer {
 	}
 	
 	public void display(){
-		System.out.print("Trainer name: "+nameString+"\n Mobile numbers: ");
+		System.out.print("Trainer name: "+nameString+"\nMobile numbers: ");
 		for(long l:mobile)
 			System.out.println(l+" ");
 		
@@ -64,14 +58,18 @@ class Trainer {
 		
 		public static void main(String[] args) {
 			
-				Student sobj= new Student();
+				
+				/*
 				sobj.setData();
 				sobj.display();
+				*/
+			
 				//now for Trainer class
 				Scanner sc= new Scanner(System.in);
 				System.out.println("Enter name: ");
 				String nameString= sc.next();
 				
+			
 				char c='y';
 				//short j=0;
 				String numberString="";
@@ -84,6 +82,7 @@ class Trainer {
 					c=sc.next().charAt(0);
 					
 				}
+				sc.close();
 				String[] numStringArray= numberString.split(" ");
 				for(String s:numStringArray)
 					System.out.println(s);									//print numbers from string array
@@ -92,7 +91,7 @@ class Trainer {
 				int i=0;
 				for(String s:numStringArray) 								//used enhanced for as counter to run loop, but s is wasted memory
 				{
-					mobile[i]= Long.parseLong(numStringArray[i]);
+					mobile[i]= Long.parseLong(s);							//or numStringArray[i]
 					i++;
 				}
 					
