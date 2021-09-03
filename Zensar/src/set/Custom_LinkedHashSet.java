@@ -4,7 +4,7 @@ import java.util.LinkedHashSet;
 //To sort a set Use TreeSet object
 //to sort map use TreeMap
 //to sort list use Collections.sort and implement comparable/comparator
-public class Custom_HashSet {
+public class Custom_LinkedHashSet {
 	public static void main(String[] args) {
 		LinkedHashSet<Trainer> hs= new LinkedHashSet<>();
 		hs.add(new Trainer(2,"Pol"));
