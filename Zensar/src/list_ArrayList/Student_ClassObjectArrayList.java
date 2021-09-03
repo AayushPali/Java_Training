@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
-import oops.Student;
+import map.Student;
 
 public class Student_ClassObjectArrayList {
 	

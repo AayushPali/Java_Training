@@ -1,5 +1,5 @@
 package map;
-
+//Qsns
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -29,31 +29,32 @@ public class HashMap_Methods {
 		
 		
 		//Enhanced for loop only works for collections or arrays
-		//To iterate over hashmap we use KeySet method
 		
 		System.out.println();
-		Set<String> kk= hm.keySet();	//Return set of type-Keys
+		//Using KeySet method to iterate using set
+		Set<String> kk= hm.keySet();					//Return set of type-Keys
 		System.out.println(kk);
 		
 		for(String s:kk) {
-			System.out.println(s+"-->"+hm.get(s));
+			System.out.println(s+"-->"+hm.get(s));		//Gets both Key & Value
 			
 		}
-		//Use iterator over set
+		//Use Iterator over set
 		System.out.println("Using Iterator: ");
 		Iterator<String> ss= kk.iterator();
 		while(ss.hasNext()) {
-			System.out.println(ss.next());
+			System.out.println(ss.next()+"-->"+hm.get(ss));				//***How to get value?
 		}
 				
 		//entrySet() returns objects of Entry i.e Objects having key,value pair
+		System.out.println("Using entrySet method of HashMap");
 		Set<Entry<String,Integer>> ee= hm.entrySet();
 		for(Entry<String,Integer> e: ee) {
 			System.out.println(e.getKey()+"-->"+e.getValue());
 		}
 		
 		//iterating over values of Hashmap
-		System.out.println("Iterate over values using ");
+		System.out.println("Iterate over values using ");				//***What's happening here?
 		Collection<Integer> c= hm.values();
 		for(Integer i:c) {
 			System.out.println(i);

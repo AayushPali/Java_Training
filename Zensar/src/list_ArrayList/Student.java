@@ -40,8 +40,8 @@ public class Student implements Comparable<Student> {
 			return 0;
 			}*/
 		
-		return this.id-o.id;										//Limitaions- What if u want to sort from Name or Class or Sports?
-																	//
+		return this.id-o.id;			//Limitaions- What if u want to sort from Name or Class or Sports?
+																	
 		
 	}
 
