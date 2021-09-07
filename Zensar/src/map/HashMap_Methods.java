@@ -43,7 +43,8 @@ public class HashMap_Methods {
 		System.out.println("Using Iterator: ");
 		Iterator<String> ss= kk.iterator();
 		while(ss.hasNext()) {
-			System.out.println(ss.next()+"-->"+hm.get(ss));				//***How to get value?
+			String s= ss.next();
+			System.out.println(s+"-->"+hm.get(s));			
 		}
 				
 		//entrySet() returns objects of Entry i.e Objects having key,value pair
