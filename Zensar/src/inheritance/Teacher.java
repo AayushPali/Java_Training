@@ -1,4 +1,4 @@
-package Inheritance;
+package inheritance;
 
 abstract public class Teacher {
 	private int Tid;

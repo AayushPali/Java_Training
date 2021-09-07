@@ -1,4 +1,4 @@
-package Inheritance;
+package inheritance;
 
 public class HourlyBased extends Teacher{
 	int rate_per_hour;

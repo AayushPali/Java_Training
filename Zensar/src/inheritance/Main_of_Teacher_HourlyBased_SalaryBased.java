@@ -1,5 +1,5 @@
 //to show run time polymorphism
-package Inheritance;
+package inheritance;
 
 public class Main_of_Teacher_HourlyBased_SalaryBased {
 	
