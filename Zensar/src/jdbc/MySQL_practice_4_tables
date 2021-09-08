@@ -1,0 +1,188 @@
+create database hospital;
+use hospital;
+CREATE TABLE doctor (
+    id INT AUTO_INCREMENT,
+    name VARCHAR(25) NOT NULL,
+    address VARCHAR(25),
+    qualification VARCHAR(20),
+    no_of_patients_handled INT,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE Patient_Master (
+    pcode INT ,							-- Why does this has to be primary to be referenced by admitted_patient??
+    name VARCHAR(25) NOT NULL,			-- Cuz, foreign key only references unique constraint.
+    address VARCHAR(25),				-- So either make it primary or unique to be referenced as FK.
+    age int,
+    gender char(1),
+    blood_group varchar(5),
+    constraint pk primary key (pcode)   -- Can't drop PK without constraint? FALSE. What abt FK?
+);
+
+CREATE TABLE Admitted_Patient (
+    pcode INT ,
+    ward_no int,
+    doctor_id int,
+    PRIMARY KEY (pcode),
+    constraint apfk foreign key (doctor_id) references doctor(id),
+    constraint appfk foreign key (pcode) references patient_master(pcode)
+);
+
+CREATE TABLE Bill (
+    pcode INT UNIQUE ,
+    amount int,
+    PRIMARY KEY (pcode),
+    constraint bfk foreign key (pcode) references admitted_patient (pcode)
+);
+
+
+#  
+drop table bill;
+# 
+drop table patient_master;
+#
+drop table doctor;
+#
+drop table admitted_patient;
+#  drop database hospital;
+
+
+#--------------------------------------------------------------------------------------------------------------------------
+use hospital;
+alter table admitted_patient add (entry_date date, discharge_date date);
+alter table admitted_patient add(disease varchar(25), did int);
+alter table admitted_patient drop did;
+desc bill;
+desc doctor;
+desc patient_master;
+
+#EXTRA -- ADD AUTO INCREMENT TO DOCTOR's ID
+alter table doctor modify id int auto_increment;
+
+
+#3 DROP PRIMARY KEY 												***not dropping!
+alter table patient_master drop primary key;
+
+#4 ADD COLUMN 
+alter table admitted_patient add (entry_date date, discharge_date date);
+-- can we add column at specific index??
+
+#5 CHANGE WARD_NO IN ADMITTED PATIENT TO VARCHAR(10) TYPE
+alter table admitted_patient drop ward_no;
+alter table admitted_patient add ward_no varchar(10);
+-- can we change type without having to drop ?
+
+#6 DROP ONE FOREIGN KEY FROM ADMITTED PATIENT											**********************
+alter table admitted_patient drop constraint apfk;        #OR drop foreign key apfk
+alter table admitted_patient add constraint apfk foreign key (doctor_id) references doctor (id);
+-- #alter table admitted_patient drop apfk; ------this doesn't work why?
+
+#7 ISN'T PCODE OF ADMITTED PATIENT SATISFYING THIS CONDITION? NO.
+alter table admitted_patient drop foreign key appfk;
+alter table admitted_patient add constraint appfk foreign key (pcode) references patient_master (pcode) on delete cascade on update cascade;
+
+#8 ADD PRIMARY KEY TO PATIENT_MASTER
+alter table patient_master drop primary key;   -- can't drop as referenced to a FK!
+-- TRYING TO DROP PK OF BILL (IT'S NOT REFERENCED AS PARENT)
+alter table bill drop primary key;  -- dropped only when id was made unique.
+
+#9
+insert into doctor values(1,"Mehra",'Tilak Road','MBBS',588),
+(2,"Hajare",'MG Nagar','MD',1250),
+(3,"Patil","Viman Nagar",'MS',400),
+(4,"Madhokar",'Sitabuldi','MBBS',23),
+(5,'Singh','Kothrud','MD',117);
+select * from doctor;
+
+#10
+select count(*),qualification from doctor group by qualification ; 
+
+#11
+select name,qualification from doctor where qualification = 'MD' or qualification = 'MBBS';
+
+insert into patient_master values (101,'Arvind','Pune',48,'M','O+'),
+(102,'Neha','Nashik',35,'F','AB+'),
+(103,'Sneha','Mumbai',24,'F','A+'),
+(104,'Milind','Mumbai',20,'M','O+'),
+(105,'Ranvijay','Nagpur',31,'M','B+'),
+(106,'Atul','Pune',61,'M','B+'),
+(107,'Shivam','Solapur',32,'M','O+'),
+(108,'Komal','Amravati',58,'F','B+'),
+(109,'Priti','Akola',18,'F','AB+'),
+(110,'David','Mumbai',22,'M','A+');
+
+#12
+select name from patient_master where (age>17 and age<21) and  blood_group='AB+';
+
+#13
+select name from doctor where address ='mumbai' and no_of_patients_handled='588';
+
+#14
+select blood_group,count(name) from patient_master group by blood_group;
+
+#15. Find the maximum bill amount and find the minimum bill amount 
+select max(amount),min(amount) from bill;
+
+#16.	find the doctors who has no_of_patient_handle are more than 10;
+select * from doctor where no_of_patients_handled > 500;
+
+#17.	find the number of patients who live in pune;
+select * from patient_master where address='pune';
+
+#18.	find the patients whose blood group is AB+ and gender is the female
+select * from patient_master where blood_group='AB+' and gender ='F';
+
+#19.	delete the patient whose ward no is 4 or 6 and Disease is covid 19 	********************************QQ
+-- can't delete or update unless on delete cascade done in child foreign key (bill) SEE--->#7
+alter table bill drop foreign key bfk;
+alter table bill add constraint bfk foreign key (pcode) references admitted_patient(pcode) on delete cascade on update cascade;
+-- alter table bill modify constraint bfk foreign key on delete cascade on update cascade;  -- doesn't work with foreign key
+
+delete from admitted_patient where ward_no in (201,203) and disease = 'covid 19';
+INSERT INTO `hospital`.`admitted_patient` (`pcode`, `ward_no`, `doctor_id`, `entry_date`, `discharge_date`, `disease`, `did`) VALUES ('101', '201', '1', '2021-02-12', '2021-02-21', 'covid 19', '500');
+INSERT INTO `hospital`.`admitted_patient` (`pcode`, `ward_no`, `doctor_id`, `entry_date`, `discharge_date`, `disease`, `did`) VALUES ('102', '203', '2', '2021-01-27', '2021-01-31', 'covid 19', '500');
+
+#20.	remove all records from bill table
+delete from bill;
+INSERT INTO `hospital`.`bill` (`pcode`, `amount`) VALUES ('101', '5200');
+INSERT INTO `hospital`.`bill` (`pcode`, `amount`) VALUES ('102', '1500');
+INSERT INTO `hospital`.`bill` (`pcode`, `amount`) VALUES ('105', '6500');
+INSERT INTO `hospital`.`bill` (`pcode`, `amount`) VALUES ('106', '9090');
+
+#21.	find the details of doctor who are treating the patient of wardno 3 and 4
+	select * from doctor where id in (select doctor_id from admitted_patient where ward_no in (3,4));
+
+#22.	find details of patient who are discharge  within the date 12-12-18 to 25-12-18
+	
+
+#23.	Give details of patient who are admitted in hospital more than 5 days
+select * from patient_master p inner join admitted_patient ap on p.pcode=ap.pcode where discharge_date-entry_date>5;
+
+#24.	find the patient who are suffered from fever and having age less than 30and bloodgroup is'A+'
+select p.* , ap.disease from patient_master p inner join admitted_patient ap on p.pcode=ap.pcode where age<30 and blood_group='A+' and disease='Fever';
+#25.	find the name of  patient who recover from covid 19 and  bill amount is greater than 10000
+select name,amount from admitted_patient ap inner join bill b on ap.pcode=b.pcode inner join patient_master p on b.pcode = p.pcode where amount>10000 and disease = 'covid 19';
+
+#27.	Difference between DBMS and RDMS
+#28.	what is primary key, Foreign key, composite key, unique key
+#29.	what is the SQL and explain commands with examples
+#30.	difference between primary key and unique key
+
+#26 Find patient whose doctor qualification is MBBS
+select p.name `Patient Name` ,d.name DoctorName									/*backtick symbol*/
+from patient_master p inner join admitted_patient ap on p.pcode=ap.pcode
+ inner join doctor d on ap.doctor_id= d.id 
+ where d.qualification = 'MBBS';
+ 
+select p.name ,d.name
+from patient_master p inner join admitted_patient ap 
+inner join doctor d
+on ap.doctor_id= d.id on p.pcode=ap.pcode				
+where d.qualification = 'MBBS' ;
+ 
+ -- Change details of patient which was operated by Dr. Singh by giving them 5% discount in bill amount.
+ UPDATE bill b inner join admitted_patient ap on b.pcode=ap.pcode 
+ inner join doctor d on ap.doctor_id=d.id 
+ set b.amount = b.amount*.95 where d.name='Singh';
+
+select * from bill;
