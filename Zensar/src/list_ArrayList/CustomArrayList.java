@@ -12,6 +12,7 @@ public class CustomArrayList {
 		als.add(new Student(5, "Nir"));
 		als.add(new Student(3, "Norse"));
 		als.add(new Student(4, "Lok"));
+		als.add(new Student(4, "Lok"));
 		
 		Collections.sort(als);
 		
